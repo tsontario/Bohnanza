@@ -6,20 +6,20 @@
 
 DiscardPile::DiscardPile() {}
 
-const DiscardPile& DiscardPile::operator+=(const Card* cardToAdd) {
+DiscardPile& DiscardPile::operator+=(Card* cardToAdd) {
     d_cards.push_back(cardToAdd);
     return *this;
 }
 
-const Card* DiscardPile::pickUp() {
+Card* DiscardPile::pickUp() {
     auto& cardToReturn = *(d_cards.end()-1);
     d_cards.pop_back();
     return cardToReturn;
 }
 
-const Card* DiscardPile::top() const {
+Card* DiscardPile::top() {
     if (d_cards.size() != 0) {
-        const Card* c = *(d_cards.end()-1);
+        Card* c = *(d_cards.end()-1);
         return c;
     }
     return nullptr;

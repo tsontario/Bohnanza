@@ -25,23 +25,23 @@ using std::cout;
 using std::string;
 
 class DiscardPile {
-    vector <const Card*> d_cards;
+    vector <Card*> d_cards;
 public:
 
     // operators
-    const DiscardPile& operator+=(const Card* cardToAdd);
+    DiscardPile& operator+=(Card* cardToAdd);
 
     // constructors
     DiscardPile();
     DiscardPile( std::istream& o, CardFactory* factory);
 
     // functions
-    const Card* pickUp();
-    const Card* top() const;
+     Card* pickUp();
+    Card* top();
     void print(std::ostream& o) const;
     bool isEmpty() const;
     
-    friend std::ostream& operator<<(std::ostream& o, const DiscardPile& d) {
+    friend std::ostream& operator<<(std::ostream& o,  DiscardPile& d) {
         
         if (d.isEmpty()) {
             o << "Discard pile is empty" << std::endl;
