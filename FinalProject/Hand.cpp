@@ -36,7 +36,7 @@ vector<Card*>* Hand::getHand() {
 // returns and removes the top card from the player's hand
 
 Card* Hand::play() {
-    auto& cardToReturn = d_cards.front();
+    Card* cardToReturn = d_cards.front();
     d_cards.erase(d_cards.begin());
 
     return cardToReturn;
