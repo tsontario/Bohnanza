@@ -25,6 +25,11 @@ void drawToTradeAreaFromDeck(TradeArea &tradeArea, Deck &deck);
 void drawToTradeAreaFromDiscardPile(TradeArea &tradeArea, DiscardPile &discardPile);
 void playInTradeArea(Player &player, TradeArea &tradeArea);
 void drawCardsAfterTurn(Player &player, Deck &deck) ;
+
+bool mustSell(Player &player, Card *pCard);
+
+bool chainExists(Player &player, Card *pCard);
+
 Table* table;
 
 using std::string;
@@ -89,9 +94,10 @@ int main(int argc, char* argv[]) {
 void playFromHand(Player& player) {
     string ans;
     char c; // holds first char of ans
-    Hand* hand = player.getHand();
+    Hand *hand = player.getHand();
     cout << "***You must now play a card from your hand: " << endl;
 
+    // Play the mandatory card, then loop
     do {
         bool canChain = true;
         if (hand->getSize() == 0) {
@@ -101,73 +107,79 @@ void playFromHand(Player& player) {
         if (c == 'n' || c == 'N') {
             break;
         }
-        // Get the card;
-        cout << endl;
+
         Card* card = hand->play();
-        cout << "Your hand: [FRONT] " << *hand << " [BACK]" << endl;
+        cout << "You play a " + card->getName() << endl;
+        cout << "Your hand is left with: " << *hand << endl;
 
-        cout << "You play a " << card->getName() << endl;
-        cout << "Press any key to proceed" << endl;
-        cin >> ans;
-        cout << endl;
-        // If a chain exists, chain the card
-        for (int i=0; i<player.getNumChains(); ++i) {
-
-            if (player[i].getGemType() == card->getName()) {
-                player[i].downcastAndAdd(card);
-                cout << "Added card to chain." << endl;
-                canChain = false;
-                break;
-            }
-            else if (player.getNumChains() < player.getMaxNumChains()) {
-                int index = player.getNumChains();
-                Chain_Base* chain = makeChain(*card);
-                player.createChain(chain);
-                player[index].downcastAndAdd(card);
-                cout << "You make a chain of " << card->getName() << endl;
-                canChain = false;
-                break;
-            }
-                // we have to sell a chain
-            else if (player.getNumChains() == player.getMaxNumChains()) {
-                int chainToSell;
-                cout << "You must sell a chain before you continue!" << endl;
-                displayChains(player);
-                cout << "Please select which chain you want to sell: ";
+        if (mustSell(player, card)) {
+            int chainToSell;
+            cout << "You must sell a chain before you continue!" << endl;
+            displayChains(player);
+            cout << "Please select which chain you want to sell: ";
+            cin >> chainToSell;
+            while (!isValidSale(chainToSell, player)) {
+                cout << "Bad selection! Please enter the number of the chain you wish to sell: ";
                 cin >> chainToSell;
-                while (!isValidSale(chainToSell, player)) {
-                    cout << "Bad selection! Please enter the number of the chain you wish to sell: ";
-                    cin >> chainToSell;
+            }
+            // Sell the old chain, add the new one
+            int index = player.getNumChains()-1;
+            sellChain(chainToSell, player);
+            player.setNumChains(player.getNumChains()-1);
+            Chain_Base* chain = makeChain(*card);
+            player.createChain(chain);
+            player[index].downcastAndAdd(card);
+        }
+        else if (chainExists(player, card)) {
+            // Add to the existing chain
+            for (int i=0; i<player.getNumChains(); ++i) {
+                if (player[i].getGemType() == card->getName()) {
+                    player[i].downcastAndAdd(card);
+                    cout << "Added card to chain." << endl;
+                    canChain = false;
+                    break;
                 }
-                // Sell the old chain, add the new one
-                int index = player.getNumChains()-1;
-                sellChain(chainToSell, player);
-                player.setNumChains(player.getNumChains()-1);
-                Chain_Base* chain = makeChain(*card);
-                player.createChain(chain);
-                player[index].downcastAndAdd(card);
-                canChain = false;
-                break;
             }
         }
-        if (canChain) {
-            canChain = false;
+        else {
+            // Create a new chain
             int index = player.getNumChains();
             Chain_Base* chain = makeChain(*card);
             player.createChain(chain);
             player[index].downcastAndAdd(card);
             cout << "You make a chain of " << card->getName() << endl;
-
         }
-
         cout << "Your chains: " << endl; displayChains(player); cout << endl;
         cout << "Would you like to keep playing your hand?[Y/N]: ";
         cin >> ans;
         cout << "ANS: " << ans;
         c = ans.at(0);
+
     } while (true);
 }
 
+bool chainExists(Player &player, Card *pCard) {
+    for (int i=0; i<player.getNumChains(); ++i) {
+        if (player[i].getGemType() == pCard->getName()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool mustSell(Player &player, Card *card) {
+    // we don't need to sell if we already have a chain of same type
+    for (int i=0; i<player.getNumChains(); ++i) {
+        if (player[i].getGemType() == card->getName()) {
+            return false;
+        }
+    }
+    // we don't need to sell if we have room for new chain
+    if (player.getNumChains() < player.getMaxNumChains()) {
+        return false;
+    }
+    return true;
+}
 
 void sellChain(int sell, Player &player) {
     int coinsEarned = player[sell].sell();
