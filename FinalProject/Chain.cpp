@@ -32,8 +32,8 @@ Chain_Base& Chain_Base::downcastAndAdd(Card* card) {
     }
     else if (c == 'R') {
        Chain<Ruby>* chain = dynamic_cast<Chain<Ruby>*>(this);
-        Ruby* gem = dynamic_cast<Ruby*>(card);
-        *chain += gem;
+       Ruby* gem = dynamic_cast<Ruby*>(card);
+       *chain += gem;
     }
     else if (c == 'Q') {
         Chain<Quartz>* chain =  dynamic_cast<Chain<Quartz>*>(this);

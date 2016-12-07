@@ -55,7 +55,6 @@ int main(int argc, char* argv[]) {
     *tradeArea += deck->draw();
     *tradeArea += deck->draw();
     *tradeArea += deck->draw();
-    table->print(cout);
 
     while (deck->size() > 0) {
         if (pauseGame) {
@@ -177,7 +176,7 @@ void discard(Player &player, DiscardPile &discardPile) {
         cin >> ans;
         cout << endl;
         char a = ans.at(0);
-        if (ans == 'C' || ans == 'c') {
+        if (a == 'C' || a == 'c') {
             return;
         }
         indexToDiscard = atoi(ans.c_str());
@@ -192,9 +191,9 @@ void playFromHand(Player& player) {
     string ans;
     char c; // holds first char of ans
     Hand* hand = player.getHand();
-    bool canChain = true;
     cout << "***You must now play a card from your hand: " << endl;
     do {
+        bool canChain = true;
         if (hand->getSize() == 0) {
             cout << "Hand is empty. " << endl;
             break;
@@ -205,7 +204,7 @@ void playFromHand(Player& player) {
         // Get the card;
         Card* card = hand->operator[](0);
 
-
+        cout << endl;
         cout << "Your hand: [FRONT] " << *(player.getHand()) << " [BACK]" << endl;
         cout << "You play a " << card->getName() << endl;
         cout << "Press any key to proceed" << endl;
@@ -268,7 +267,7 @@ void playFromHand(Player& player) {
         cout << "Your chains: " << endl; displayChains(player); cout << endl;
         cout << "Would you like to keep playing your hand?[Y/N]: ";
         cin >> ans;
-        cout << "ANS: " << ans << endl;
+        cout << "ANS: " << ans;
         c = ans.at(0);
     } while (true);
 }

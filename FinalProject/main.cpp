@@ -20,6 +20,11 @@ void playFromHand(Player &pPlayer);
 void displayChains(Player &player);
 bool isValidSale(int sell, Player &player);
 void sellChain(int sell, Player &player);
+void discard(Player &player, DiscardPile &discardPile);
+void drawToTradeAreaFromDeck(TradeArea &tradeArea, Deck &deck);
+void drawToTradeAreaFromDiscardPile(TradeArea &tradeArea, DiscardPile &discardPile);
+void playInTradeArea(Player &player, TradeArea &tradeArea);
+void drawCardsAfterTurn(Player &player, Deck &deck) ;
 Table* table;
 
 using std::string;
@@ -48,7 +53,6 @@ int main(int argc, char* argv[]) {
     *tradeArea += deck->draw();
     *tradeArea += deck->draw();
     *tradeArea += deck->draw();
-    table->print(cout);
 
     while (deck->size() > 0) {
         if (pauseGame) {
@@ -61,12 +65,20 @@ int main(int argc, char* argv[]) {
             cout << endl;
             cout << "************ " << player->getName() << "'s turn! ************ " << endl << endl;
             table->printInGame(cout);
-            cout << "Your hand: [FRONT] " << *(player->getHand()) << " [BACK]" << endl;
+            cout << endl;
             buyExtraChain(*player);
+            cout << "You draw a card." << endl;
             player->drawCard(deck->draw());
+            cout << "Your hand: [FRONT] " << *(player->getHand()) << " [BACK]" << endl;
             addFromTradeArea(*player, *tradeArea, *discardPile);
             playFromHand(*player);
+            discard(*player, *discardPile);
+            drawToTradeAreaFromDeck(*tradeArea, *deck);
+            drawToTradeAreaFromDiscardPile(*tradeArea, *discardPile);
+            playInTradeArea(*player, *tradeArea);
+            drawCardsAfterTurn(*player, *deck);
 
+            cout << "DONE PLAYING FROM HAND";
         }
         break;
     }
@@ -78,9 +90,10 @@ void playFromHand(Player& player) {
     string ans;
     char c; // holds first char of ans
     Hand* hand = player.getHand();
-    bool canChain = true;
     cout << "***You must now play a card from your hand: " << endl;
+
     do {
+        bool canChain = true;
         if (hand->getSize() == 0) {
             cout << "Hand is empty. " << endl;
             break;
@@ -89,19 +102,16 @@ void playFromHand(Player& player) {
             break;
         }
         // Get the card;
-        Card* card = hand->operator[](0);
+        cout << endl;
+        Card* card = hand->play();
+        cout << "Your hand: [FRONT] " << *hand << " [BACK]" << endl;
 
-        cout << "Your hand: [FRONT] " << *(player.getHand()) << " [BACK]" << endl;
         cout << "You play a " << card->getName() << endl;
         cout << "Press any key to proceed" << endl;
         cin >> ans;
         cout << endl;
         // If a chain exists, chain the card
         for (int i=0; i<player.getNumChains(); ++i) {
-            cout << endl;
-
-            cout << "You play a " << card->getName() << endl;
-            cout << "Press any key to proceed" << endl;
 
             if (player[i].getGemType() == card->getName()) {
                 player[i].downcastAndAdd(card);
@@ -119,7 +129,7 @@ void playFromHand(Player& player) {
                 break;
             }
                 // we have to sell a chain
-            else {
+            else if (player.getNumChains() == player.getMaxNumChains()) {
                 int chainToSell;
                 cout << "You must sell a chain before you continue!" << endl;
                 displayChains(player);
@@ -136,7 +146,7 @@ void playFromHand(Player& player) {
                 Chain_Base* chain = makeChain(*card);
                 player.createChain(chain);
                 player[index].downcastAndAdd(card);
-                displayChains(player);
+                canChain = false;
                 break;
             }
         }
@@ -376,3 +386,103 @@ Table *makeTable(int argc, char*argv[]) {
 }
 
 
+/** *******************************/
+void playInTradeArea(Player &player, TradeArea &tradeArea) {
+    string ans;
+    cout << "The trade area contains the following cards: " << endl;
+    for (auto& card: tradeArea.getCards()) {
+        cout << " " << card->getName() << " ";
+    }
+    cout << endl;
+    for (auto& card: tradeArea.getCards()) {
+        string c{card->getName()};
+
+        while (true) {
+            cout << "You examine the " << c << ". Would you like to [I]gnore or [C]hain it??";
+            cin >> ans;
+            if (ans.at(0) == 'c' || ans.at(0) == 'C') {
+                tradeArea.trade(card->getName());
+                chainCard(player, *card);
+
+                break;
+            }
+            else if (ans.at(0) == 'i' || ans.at(0) == 'I') {
+                break;
+            }
+            else {
+                cout << endl << "Invalid selection, please try again: ";
+            }
+
+        }
+    }
+}
+
+void drawCardsAfterTurn(Player &player, Deck &deck) {
+
+    int numCardsDrawn = 0;
+
+    for (int i = 0; i < 2; i++) {
+        if (deck.size() == 0) {
+            cout << "The deck is now empty";
+            return;
+        }
+        player.drawCard(deck.draw());
+        numCardsDrawn++;
+    }
+
+    cout << "You drew " << numCardsDrawn <<" cards from the deck";
+}
+
+void drawToTradeAreaFromDiscardPile(TradeArea &tradeArea, DiscardPile &discardPile) {
+    cout << "Drawing from the discard pile, you got: ";
+
+    Card* cardFromDiscardPile;
+
+    if (!discardPile.isEmpty()) {
+        cardFromDiscardPile = discardPile.top();
+    } else {
+        return;
+    }
+
+    while(!discardPile.isEmpty() && tradeArea.legal(cardFromDiscardPile)) {
+        cardFromDiscardPile = discardPile.pickUp();
+        cout << cardFromDiscardPile->getName();
+        tradeArea.operator+=(cardFromDiscardPile);
+    }
+
+    cout << endl;
+
+}
+
+void drawToTradeAreaFromDeck(TradeArea &tradeArea, Deck &deck) {
+    cout << "Drawing 3 cards to the trade area: ";
+    for (int i = 0; i < 3; i++) {
+        Card* drawnCard = deck.draw();
+        cout << drawnCard->getName() << " ";
+        tradeArea.operator+=(drawnCard);
+    }
+
+    cout << endl;
+}
+
+void discard(Player &player, DiscardPile &discardPile) {
+    string ans;
+    Hand* hand = player.getHand();
+    int indexToDiscard;
+    bool canDiscrad = hand->getSize() != 0;
+    if (canDiscrad) {
+        cout << "Your hand: [FRONT] " << *(player.getHand()) << " [BACK]" << endl;
+        cout << "Select a card index to discard (C to cancel) : " << endl;
+        cin >> ans;
+        cout << endl;
+        char a = ans.at(0);
+        if (a == 'C' || a == 'c') {
+            return;
+        }
+        indexToDiscard = atoi(ans.c_str());
+        Card* cardToDiscard = hand->operator[](indexToDiscard);
+        discardPile.operator+=(cardToDiscard);
+    } else {
+        cout << "You cannot discard because your hand is empty" << endl;
+    }
+}
