@@ -70,7 +70,7 @@ Player* Table::getPlayer1() {
     return firstPlayer;
 }
 Player* Table::getPlayer2() {
-    return firstPlayer;
+    return secondPlayer;
 }
 Deck* Table::getDeck() {
     return deck;

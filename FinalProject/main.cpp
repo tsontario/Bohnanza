@@ -42,7 +42,9 @@ int main(int argc, char* argv[]) {
     Deck* deck = table->getDeck();
     DiscardPile* discardPile = table->getDiscardPile();
     TradeArea* tradeArea = table->getTradeArea();
-    vector<Player*> players{p1,p2};
+    vector<Player*> players;
+    players.push_back(p1);
+    players.push_back(p2);
     *tradeArea += deck->draw();
     *tradeArea += deck->draw();
     *tradeArea += deck->draw();
@@ -58,11 +60,12 @@ int main(int argc, char* argv[]) {
         for (auto& player : players) {
             cout << "************ " << player->getName() << "'s turn! ************ " << endl << endl;
             table->printInGame(cout);
-//            cout << "Your hand: [FRONT] " << *(player->getHand()) << " [BACK]" << endl;
+            cout << "Your hand: [FRONT] " << *(player->getHand()) << " [BACK]" << endl;
             buyExtraChain(*player);
             player->drawCard(deck->draw());
             addFromTradeArea(*player, *tradeArea, *discardPile);
             playFromHand(*player);
+            cout << "DONE PLAYING FROM HAND";
         }
         break;
     }
