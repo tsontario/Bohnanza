@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
         for (auto& player : players) {
             cout << "************ " << player->getName() << "'s turn! ************ " << endl << endl;
             table->printInGame(cout);
-            cout << "Your hand: [BACK] " << *(player->getHand()) << " [FRONT]" << endl;
+            cout << "Your hand: [FRONT] " << *(player->getHand()) << " [BACK]" << endl;
             buyExtraChain(*player);
             player->drawCard(deck->draw());
             addFromTradeArea(*player, *tradeArea, *discardPile);
@@ -84,7 +84,9 @@ void playFromHand(Player& player) {
         if (c == 'n' || c == 'N') {
             break;
         }
+        // Get the card;
         Card* card = hand->operator[](0);
+        cout << "Your hand: [FRONT] " << *(player.getHand()) << " [BACK]" << endl;
         cout << "You play a " << card->getName() << endl;
         cout << "Press any key to proceed" << endl;
         cin >> ans;
@@ -98,15 +100,17 @@ void playFromHand(Player& player) {
             if (player[i].getGemType() == card->getName()) {
                 player[i].downcastAndAdd(card);
                 cout << "Added card to chain." << endl;
-                i = -1;
                 canChain = true;
+                break;
             }
             else if (player.getNumChains() < player.getMaxNumChains()) {
                 int index = player.getNumChains();
                 Chain_Base* chain = makeChain(*card);
                 player.createChain(chain);
                 player[index].downcastAndAdd(card);
+                cout << "You make a chain of " << card->getName() << endl;
                 canChain = true;
+                break;
             }
             // we have to sell a chain
             else {
@@ -127,15 +131,15 @@ void playFromHand(Player& player) {
                 player.createChain(chain);
                 player[index].downcastAndAdd(card);
                 displayChains(player);
+                break;
             }
         }
-        cout << "Your hand: [BACK] " << *(player.getHand()) << " [FRONT]" << endl;
+
         cout << "Would you like to keep playing your hand?[Y/N]: ";
         cin >> ans;
         cout << "ANS: " << ans;
         c = ans.at(0);
     } while (true);
-    cout << "OUT OF HAND!" << endl;
 }
 
 void sellChain(int sell, Player &player) {
