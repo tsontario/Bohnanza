@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="CSI2372Project"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="CSI2372Project">
+				<Option output="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/CSI2372Project" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 CSI2372Project"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="CSI2372Project/fast">
+				<Option output="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/CSI2372Project" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 CSI2372Project/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/Chain.cpp">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/Chain.h">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cardfactory.cpp">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/cardfactory.h">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/deck.cpp">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/deck.h">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/discardpile.cpp">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/discardpile.h">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/gemstones.cpp">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/gemstones.h">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/hand.cpp">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/hand.h">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/main.cpp">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/player.cpp">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/player.h">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/table.cpp">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/table.h">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/tradearea.cpp">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/tradearea.h">
+			<Option target="CSI2372Project"/>
+		</Unit>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
