@@ -49,27 +49,6 @@ void Player::makeHand(Deck* deck) {
     }
 }
 
-void Player::buyThirdChain() {
-    try {
-        if (d_maxChains == 3) {
-            throw new MaxChainException();;
-        }
-        else if (d_coins < 2) {
-            throw new NotEnoughCoinsException();
-        }
-        else {
-            d_maxChains = 3;
-            d_coins -= 2;
-        }
-    }
-    catch (MaxChainException& e) {
-        std::cout << e.what() << std::endl;
-    }
-    catch (NotEnoughCoinsException& e) {
-        std::cout << e.what() << std::endl;
-    }
-}
-
 void Player::drawCard(Card *c) {
     *d_hand += c;
 }
@@ -87,21 +66,6 @@ void Player::createChain(Chain_Base *chain) {
 
 void Player::setNumChains(int x) {
     d_currentChains = x;
-}
-/**
- * Prints either one or all cards in the Player's hand
- *
- * @param o The output stream
- * @param completeList if false, print top of hand, otherwise print all
- *          card in hand
- */
-void Player::printHand(std::ostream& o, bool completeList) {
-    if (!completeList) {
-        o << d_hand->top()->getName();
-    }
-    else {
-        o << d_hand;
-    }
 }
 
 /** operators */

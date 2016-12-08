@@ -29,19 +29,6 @@
 using std::string;
 using std::vector;
 
-/** Custom Exceptions */
-struct NotEnoughCoinsException : public std::exception {
-    virtual const char* what() const throw() {
-        return "Not enough coins";
-    }
-};
-
-struct MaxChainException : public std::exception {
-    virtual const char* what() const throw() {
-        return "You already have 3 chains!";
-    }
-};
-
 /** Class Definition */
 class Player {
     string d_name;
@@ -61,15 +48,12 @@ public:
     int getNumCoins() const;
     int getMaxNumChains() const;
     int getNumChains() const;
-    void buyThirdChain();
     Hand* getHand();
 
     void makeHand(Deck* deck);
     void drawCard(Card* c);
     vector<Chain_Base*>& getChains();
     void createChain(Chain_Base* chain);
-
-    void printHand(std::ostream&, bool completeList);
 
     // operators
     Player& operator+=(int coins);
@@ -84,12 +68,7 @@ public:
         return o;
     }
 
-    Chain_Base* createChain(CardFactory *cf, string &chainType);
-    void addToChain(Chain_Base &chain, CardFactory *cf);
-    void getPlayerInfo(std::istream &in);
-
     Chain_Base* makeChain(string type);
-
     void setNumChains(int x);
 };
 #endif //CSI2372PROJECT_PLAYER_H

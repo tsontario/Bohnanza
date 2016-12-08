@@ -40,7 +40,6 @@ public:
     Card* top();
     void print(std::ostream& out) const;
     vector<Card*>* getHand();
-    const bool isEmpty();
     int getSize() const;
 
 

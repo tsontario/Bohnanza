@@ -24,8 +24,9 @@ Card* Hand::operator[](int index) {
         return nullptr;
     }
     else {
+        Card* card = d_cards[index];
         d_cards.erase(d_cards.begin() + index);
-        return d_cards[index];
+        return card;
     }
 }
 
@@ -42,14 +43,10 @@ Card* Hand::play() {
     return cardToReturn;
 }
 
-// is Empty
-const bool Hand::isEmpty() {
-    return d_cards.size() == 0;
-}
-
 // get size
 int Hand::getSize() const {
-    return static_cast<int>(d_cards.size());
+    int size = d_cards.size();
+    return size;
 }
 
 //returns but does not remove the top card from the player's hand

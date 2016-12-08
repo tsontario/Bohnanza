@@ -1,8 +1,9 @@
 Tim ~ 2  2  2 ~ 
-Emerald	E  ~ 
-Quartz	Q Q  ~ 
-Quartz Ruby Emerald Turquoise  ~ 
-Lula ~ 2  1  2 ~ 
-Hematite	H  ~ 
-Ruby Hematite Malachite Ruby Quartz Quartz Quartz  ~ 
-Malachite Ruby Obsidian Hematite Turquoise Turquoise Obsidian Obsidian Obsidian Obsidian Ruby Turquoise Quartz Ruby Quartz Hematite Obsidian Turquoise Quartz Hematite Quartz Hematite Quartz Hematite Quartz Obsidian Malachite Quartz Malachite Quartz Quartz Turquoise Emerald Obsidian Amethyst Malachite Amethyst Obsidian Hematite Turquoise Malachite Obsidian Amethyst Turquoise Quartz Malachite Malachite Emerald Quartz Hematite Turquoise Amethyst Emerald Ruby Hematite Hematite Hematite Amethyst Amethyst Obsidian Obsidian Malachite Hematite Obsidian Hematite Obsidian Quartz Turquoise Turquoise Obsidian Hematite Ruby Malachite Malachite Emerald Hematite Quartz Hematite Ruby Amethyst Turquoise Hematite  ~  ~ Obsidian Malachite Quartz Malachite Ruby Malachite Amethyst  ~ 
+Obsidian	O O O  ~ 
+Quartz	Q Q Q Q  ~ 
+Emerald Hematite Obsidian Quartz Quartz Malachite Ruby Turquoise  ~ 
+Lula ~ 2  2  2 ~ 
+Quartz	Q Q Q  ~ 
+Malachite	M M  ~ 
+Quartz Hematite Hematite Quartz Malachite Hematite Hematite Amethyst  ~ 
+Hematite Amethyst Hematite Amethyst Quartz Turquoise Amethyst Ruby Quartz Emerald Quartz Malachite Malachite Ruby Hematite Ruby Hematite Obsidian Obsidian Amethyst Turquoise Quartz Turquoise Quartz Ruby Obsidian Malachite Obsidian Malachite Malachite Amethyst Turquoise Quartz Quartz Hematite Ruby Hematite Obsidian Hematite Emerald Obsidian Hematite Turquoise Emerald Hematite Ruby Turquoise Hematite Hematite Malachite Emerald Obsidian Malachite Hematite Malachite Obsidian Turquoise Malachite Turquoise Turquoise Obsidian Ruby Hematite Amethyst Quartz Amethyst Turquoise Emerald Quartz Turquoise  ~ Emerald Obsidian Quartz  ~ Obsidian Ruby Obsidian  ~ 

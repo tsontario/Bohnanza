@@ -80,6 +80,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/Card.h">
+			<Option target="CSI2372Project"/>
+		</Unit>
 		<Unit filename="/Users/timothysmith/Downloads/CSI2372Project-master/FinalProject/Chain.cpp">
 			<Option target="CSI2372Project"/>
 		</Unit>

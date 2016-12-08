@@ -16,13 +16,17 @@ Table::Table(Player* player1, Player* player2, Deck* deck, DiscardPile* discardP
 bool Table::win(string& winner) {
     int one_coins = firstPlayer->getNumCoins();
     int two_coins = secondPlayer->getNumCoins();
-    if (one_coins == two_coins) { return false; }
-    winner = one_coins > two_coins ? firstPlayer->getName() : secondPlayer->getName();
+    if (one_coins == two_coins) {
+        winner = "Both of you";
+    }
+    else {
+        winner = one_coins > two_coins ? firstPlayer->getName() : secondPlayer->getName();
+    }
     return true;
 }
 
 /**
- * Prints out the data of the game to file for saving.
+ * Prints out the data of the game to file for saving. '~' character used as token seperator
  * @param o the output stream, expected to be a file stream
  */
 void Table::print(std::ostream& o) {
@@ -61,8 +65,8 @@ void Table::printInGame(std::ostream& o) {
     o << "*** Current view of the gameboard: ***" << endl;
     o << *firstPlayer << endl;
     o << *secondPlayer << endl;
-    o << "Discard Pile: ";
-    o << *discardPile;
+    o << "Top of Discard Pile: ";
+    o << *discardPile << endl;
     o << "Trade Area: ";
     o << *tradeArea << endl;
     o << "***************************" << endl;

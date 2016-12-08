@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Table.h"
 
+// Helper method prototypes
 Table *makeTable(int, char*[]);
 void writeToFile(Table* pTable);
 void buyExtraChain(Player& pPlayer);
@@ -42,7 +43,7 @@ using std::fstream;
 
 int main(int argc, char* argv[]) {
     // Init variables
-    table = makeTable(argc, argv);
+    table = makeTable(argc, argv); // new game or load game
     Player* pausePlayer; // whose turn it is
     // Start game loop
     Player* p1 = table->getPlayer1();
@@ -53,7 +54,6 @@ int main(int argc, char* argv[]) {
     vector<Player*> players;
     players.push_back(p1);
     players.push_back(p2);
-    table->print(cout);
     bool pauseGame = false;
 
     while (deck->size() > 0) {
@@ -70,7 +70,7 @@ int main(int argc, char* argv[]) {
             table->printInGame(cout);
             cout << endl;
             buyExtraChain(*player);  // Prompt to buy third chain?
-            cout << "*********************************************" << endl;
+            cout << "**************************************************************************************************" << endl;
             // Mandatory draw
             player->drawCard(deck->draw());
             cout << "You draw a card." << endl;
@@ -96,10 +96,13 @@ int main(int argc, char* argv[]) {
             // Set the pause and save flag?
         }
         pauseGame = askToPause();
-
     }
-
+    string winner;
+    table->win(winner);
+    // if equal coins, both peopel are winners.
+    cout << "Congratulations " << winner << "! You won!!" << endl;
     cout << endl;
+    exit(0);
 }
 
 void playFromHand(Player& player) {
@@ -121,7 +124,7 @@ void playFromHand(Player& player) {
         Card* card = hand->play();
         cout << "You play a " + card->getName() << endl;
         cout << "*********************************************" << endl;
-        cout << "Your hand is left with: " << *hand << endl;
+        cout << "Your hand is left with: [FRONT]" << *hand << " [BACK]" << endl;
 
         if (mustSell(player, card)) {
             int chainToSell;
@@ -227,15 +230,16 @@ void displayChains(Player &player) {
 
 void addFromTradeArea(Player& player, TradeArea& tradeArea, DiscardPile& discardPile) {
     string ans;
-    cout << "***************************" << endl;
-    cout << "The trade area contains the following cards: " << endl;
+    cout << "**************************************************************************************************" << endl;
+    cout << "In this phase you may pick up cards from the trade area, ignore, or place them in the discard pile" << endl;
+    cout << endl << "The trade area contains the following cards: " << endl;
     for (auto& card: tradeArea.getCards()) {
         cout << " " << card->getName() << " ";
     }
     cout << endl;
     for (auto& card: tradeArea.getCards()) {
         string c{card->getName()};
-
+        // For each card in the trade area, ignore, discard, or chain it
         while (true) {
             cout << "You examine the " << c << ". Would you like to [I]gnore, [D]iscard it or [C]hain it??";
             cin >> ans;
@@ -258,7 +262,8 @@ void addFromTradeArea(Player& player, TradeArea& tradeArea, DiscardPile& discard
 
         }
     }
-    cout << endl << "Trade Area now contains: " << endl;
+    cout << "*********** End of phase ********************" << endl;
+    cout <<  "Trade Area now contains: " << endl;
     for (auto& card: tradeArea.getCards()) {
         cout << " " << card->getName() << " ";
     }
@@ -360,7 +365,7 @@ void buyExtraChain(Player& player) {
 void writeToFile(Table *pTable) {
     string saveFile;
     cout << endl;
-    cout << "Please enter the name of the savefile: ";
+    cout << "Please enter the name of the savefile (e.g. save.txt): ";
     cin >> saveFile;
     fstream file;
     file.open(saveFile, fstream::out);
@@ -417,7 +422,6 @@ Table *makeTable(int argc, char*argv[]) {
 }
 
 
-/** *******************************/
 void playInTradeArea(Player &player, TradeArea &tradeArea) {
     string ans;
     displayChains(player);
@@ -425,8 +429,9 @@ void playInTradeArea(Player &player, TradeArea &tradeArea) {
     for (auto& card: tradeArea.getCards()) {
         cout << " " << card->getName() << " ";
     }
+    cout << endl;
     for (auto& card: tradeArea.getCards()) {
-
+        // for each card in trade area, chain it or ignore it.
         while (true) {
             cout << "You examine the " << card->getName() << ". Would you like to [I]gnore or [C]hain it? ";
             cin >> ans;
@@ -458,6 +463,7 @@ void playInTradeArea(Player &player, TradeArea &tradeArea) {
                         if (player[i].getGemType() == card->getName()) {
                             player[i].downcastAndAdd(card);
                             cout << "Added card to chain." << endl;
+                            displayChains(player);
                             break;
                         }
                     }
@@ -470,6 +476,7 @@ void playInTradeArea(Player &player, TradeArea &tradeArea) {
                     player.createChain(chain);
                     player[index].downcastAndAdd(card);
                     cout << "You make a chain of " << card->getName() << endl;
+                    displayChains(player);
                     tradeArea.trade(card->getName());
                     break;
 
@@ -487,7 +494,7 @@ void drawCardsAfterTurn(Player &player, Deck &deck) {
     int numCardsDrawn = 0;
     for (int i = 0; i < 2; i++) {
         if (deck.size() == 0) {
-            cout << "The deck is now empty";
+            cout << "The deck is now empty" << endl;
             return;
         }
         player.drawCard(deck.draw());
@@ -498,7 +505,6 @@ void drawCardsAfterTurn(Player &player, Deck &deck) {
 
 void drawToTradeAreaFromDiscardPile(TradeArea &tradeArea, DiscardPile &discardPile) {
     cout << "Drawing from the discard pile, you got: ";
-
     Card* cardFromDiscardPile;
 
     if (!discardPile.isEmpty()) {
@@ -508,11 +514,14 @@ void drawToTradeAreaFromDiscardPile(TradeArea &tradeArea, DiscardPile &discardPi
         return;
     }
 
-    while(!discardPile.isEmpty() && tradeArea.legal(cardFromDiscardPile)) {
-        cardFromDiscardPile = discardPile.pickUp();
-        cout << cardFromDiscardPile->getName();
-        tradeArea.operator+=(cardFromDiscardPile);
+    for (Card* card : tradeArea.getCards()) {
+        if (cardFromDiscardPile->getName() == card->getName()) {
+            cardFromDiscardPile = discardPile.pickUp();
+            cout << cardFromDiscardPile->getName() << " ";
+            tradeArea.operator+=(cardFromDiscardPile);
+        }
     }
+
     cout << endl;
 
 }
@@ -538,8 +547,12 @@ void discard(Player &player, DiscardPile &discardPile) {
     int indexToDiscard;
     bool canDiscrad = hand->getSize() != 0;
     if (canDiscrad) {
-        cout << "Your hand: [FRONT] " << *(player.getHand()) << " [BACK]" << endl;
-        cout << "Select a card index to discard (C to cancel) : " << endl;
+        cout << "Your hand: ";
+        vector<Card*>* vec_cards = hand->getHand();
+        for (int i=0; i<vec_cards->size(); ++i) {
+            cout << "[" << i << "]: " << *(vec_cards->operator[](i)) << ", ";
+        }
+        cout << "Choose a card to discard or enter 'c' if you don't want to discard a card" << endl;
         cin >> ans;
         cout << endl;
         char a = ans.at(0);
@@ -547,6 +560,7 @@ void discard(Player &player, DiscardPile &discardPile) {
             return;
         }
         indexToDiscard = atoi(ans.c_str());
+        cout << "INDEX TO DISCARD: " << indexToDiscard;
         Card* cardToDiscard = hand->operator[](indexToDiscard);
         cout << "You discard the " << cardToDiscard->getName();
         discardPile.operator+=(cardToDiscard);

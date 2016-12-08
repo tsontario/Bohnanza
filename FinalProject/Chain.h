@@ -76,10 +76,6 @@ public:
         }
     }
 
-    void setGemType(std::string name) {
-        d_gemType = name;
-    }
-
     Chain(std::istream& in, CardFactory* cf) : Chain_Base("") {
         string buf;
         in >> d_gemType;
