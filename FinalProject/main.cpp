@@ -42,7 +42,6 @@ using std::fstream;
 
 int main(int argc, char* argv[]) {
     // Init variables
-    bool pauseGame = false;
     table = makeTable(argc, argv);
     Player* pausePlayer; // whose turn it is
     // Start game loop
@@ -54,9 +53,8 @@ int main(int argc, char* argv[]) {
     vector<Player*> players;
     players.push_back(p1);
     players.push_back(p2);
-    *tradeArea += deck->draw();
-    *tradeArea += deck->draw();
-    *tradeArea += deck->draw();
+    table->print(cout);
+    bool pauseGame = false;
 
     while (deck->size() > 0) {
         if (pauseGame) {
@@ -131,9 +129,15 @@ void playFromHand(Player& player) {
             displayChains(player);
             cout << "Please select which chain you want to sell: ";
             cin >> chainToSell;
-            while (!isValidSale(chainToSell, player)) {
-                cout << "Bad selection! Please enter the number of the chain you wish to sell: ";
-                cin >> chainToSell;
+            while (true) {
+                if (!cin.fail()) {
+                    cout << "Bad selection! Please enter the number of the chain you wish to sell: ";
+                    cin.clear();
+                    cin >> chainToSell;
+                }
+                else {
+                    break;
+                }
             }
             // Sell the old chain, add the new one
             int index = player.getNumChains()-1;
@@ -207,6 +211,7 @@ void sellChain(int sell, Player &player) {
 }
 
 bool isValidSale(int selection, Player &player) {
+
     return (selection >= 0 && selection < player.getNumChains());
 }
 

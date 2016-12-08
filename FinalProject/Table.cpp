@@ -44,7 +44,8 @@ void Table::print(std::ostream& o) {
     o << secondPlayer->getName() << " ~ " << secondPlayer->getNumCoins() << "  ";
     o << p2NumChains << "  " << p2MaxChains << " ~ " << std::endl;
     for (int i=0; i<p2NumChains; ++i) {
-        o << secondPlayer[i];
+        auto& chain = (*secondPlayer)[i];
+        o << chain << " ~ " << endl;
     }
     o << *(secondPlayer->getHand()) << " ~ " << endl;
 
