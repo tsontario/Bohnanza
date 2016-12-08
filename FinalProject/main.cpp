@@ -131,6 +131,9 @@ void playFromHand(Player& player) {
             cin >> chainToSell;
             while (true) {
                 if (!cin.fail()) {
+                    if (isValidSale(chainToSell, player)) {
+                        break;
+                    }
                     cout << "Bad selection! Please enter the number of the chain you wish to sell: ";
                     cin.clear();
                     cin >> chainToSell;
@@ -422,7 +425,6 @@ void playInTradeArea(Player &player, TradeArea &tradeArea) {
     for (auto& card: tradeArea.getCards()) {
         cout << " " << card->getName() << " ";
     }
-    cout << endl;
     for (auto& card: tradeArea.getCards()) {
 
         while (true) {
