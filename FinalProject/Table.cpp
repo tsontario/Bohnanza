@@ -53,6 +53,7 @@ void Table::print(std::ostream& o) {
     o << " ~ ";
     tradeArea->numCards() == 0 ? (o << " ~ ") : (o << *tradeArea << " ~ ");
     o << std::endl;
+
 }
 
 void Table::printInGame(std::ostream& o) {
